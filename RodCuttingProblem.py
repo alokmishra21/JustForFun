@@ -9,7 +9,7 @@ class MaxRevenueByRodCutting:
         '''
             This function returns the maximum
             revenue from cutting a rod of length
-            size and the way to cut it
+            n and the way to cut it
         '''
         s = [0]*(n+1)
         for length in range(n+1):
@@ -19,8 +19,8 @@ class MaxRevenueByRodCutting:
             for cut in range(length+1):
                 if cut is 0:
                     continue
-                if q < self.price[cut] + self.r[ length - cut ]:
-                    q = self.price[cut] + self.r[ length - cut ]
+                if q < self.price[cut] + self.r[length - cut]:
+                    q = self.price[cut] + self.r[length - cut]
                     s[length] = cut
             self.r[length] = q
             
