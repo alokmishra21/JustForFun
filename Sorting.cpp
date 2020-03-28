@@ -6,6 +6,38 @@ void swap (int &a, int&b )
     b = t;
 }
 
+int partition(int *arr, int& N, int l, int r)
+{
+    int pivot = r;
+    int sorted_till_index = -1;
+    
+    for (int i = 0; i < r; i++)
+    {
+        if (arr[i] < arr[pivot])
+        {
+            sorted_till_index++;
+            swap(arr[i], arr[sorted_till_index]);
+        }
+    }
+    swap(arr[sorted_till_index + 1], arr[r]);
+    return sorted_till_index + 1;
+}
+void quick_sort(int *arr, int&N, int l, int r)
+{
+    if (r > l)
+    {
+        int p = partition(arr, N, l, r);
+        
+        quick_sort(arr, N, l, p - 1);
+        quick_sort(arr, N, p + 1, r);
+    }
+    /*
+        TC = O(nlogn), but in worst case O(N^2), and it
+                       happens when array is aready sorted.
+        SC = O(1)
+    */
+}
+
 void merge(int *arr, int& N, int l, int m, int r)
 {
     int aL[m - l + 1];
@@ -118,13 +150,16 @@ void selection_sort (int *arr, int& N)
 }
 int main() 
 {
-    int arr[] = { 3, 2, 5, 20, 1, 4, -1 };
+    int arr[] = { 3, 2, 5, 20, 1, 4, -1, 100 };
     int N = sizeof(arr) / sizeof(int);
     
     // selection_sort(arr, N);
     // bubble_sort(arr, N);
     // insertion_sort(arr, N);
-    merge_sort(arr, N, 0, N-1);
+    // merge_sort(arr, N, 0, N-1);
+    quick_sort(arr, N, 0, N - 1);
     for (int i = 0; i < N; i++)
         cout << arr[i] << "\t";
 }
+
+
